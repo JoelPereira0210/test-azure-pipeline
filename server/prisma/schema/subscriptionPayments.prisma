@@ -1,0 +1,21 @@
+model SubscriptionPayments {
+  id                      String   @id @default(uuid())
+  subscriptionPaymentId   String   @unique
+  userId                  String
+  eventId                 String?
+  amount                  Int
+  platformFee             Int?
+  convienceFee            Int?
+  subscriptionPaymentDate DateTime
+  societyBankDetailId     String
+  couponId                String?
+  coupon                  Coupons? @relation("Coupon", fields: [couponId], references: [couponId])
+  subscriptionId          String?
+  status                  String
+  gatewayResponse         Json?
+  paymentId               String @default("default-payment-id")
+  createdAt               DateTime @default(now())
+  createdById             String
+  createdBy               User     @relation("SubscriptionPayments", fields: [createdById], references: [userId])
+  numberOfRegistrations   Int
+}

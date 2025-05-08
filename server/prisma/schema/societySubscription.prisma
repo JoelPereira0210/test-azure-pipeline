@@ -1,0 +1,17 @@
+model societySubscription {
+  societySubscriptionId String         @id @unique @default(uuid())
+  subscriptionId        String
+  subscriptionPaymentID String
+  societyId             String
+  subscriptionStartDate DateTime
+  subscriptionEndDate   DateTime
+  isActive              Boolean
+  maxUsers              String
+  createdById           String
+  createdBy             User           @relation("SocietySubscriptionBuyer", fields: [createdById], references: [userId])
+
+  // Define the relation to SubscriptionMaster
+  subscriptionMaster    SubscriptionMaster @relation(fields: [subscriptionId], references: [subscriptionId])
+
+  @@index([subscriptionId])  // Optional: add an index for faster lookups
+}

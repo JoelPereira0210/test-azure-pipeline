@@ -1,0 +1,19 @@
+model SubscriptionMaster {
+  subscriptionId   String          @id @default(uuid())
+  planName         String          @db.VarChar(60)
+  planDescription  String          @db.VarChar(255) @default("")
+  price            String          @db.VarChar(14)
+  duration         String          @db.VarChar(14)
+  maxUsers         String          @db.VarChar(14)
+  isDeleted        DeletionStatus  @default(NOT_DELETED)
+  createdAt        DateTime
+  modifiedAt       DateTime
+  createdById      String
+  modifiedById     String
+  createdBy        User            @relation("SubscriptionCreator", fields: [createdById], references: [userId])
+  modifiedBy       User            @relation("SubscriptionEditor", fields: [modifiedById], references: [userId])
+  shouldPublish    Boolean         @default(false)
+
+  // Add the reverse relation to societySubscription
+  societySubscriptions societySubscription[]
+}

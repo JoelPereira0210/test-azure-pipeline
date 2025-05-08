@@ -1,0 +1,11 @@
+model SliderCard {
+    sliderCardId        String      @id @default(uuid())
+    cardTitle           String?     @db.VarChar(255)
+    cardSubTitle        String?     @db.VarChar(255)
+    cardDescription     String?     @db.VarChar(1000)
+    source              String?
+    //relations
+    uploads             Media[]
+    linkedLandingCard   LandingCard? @relation(fields: [landingCardId], references: [landingCardId]) // Optional relationship
+    landingCardId       String?      // Foreign key
+}

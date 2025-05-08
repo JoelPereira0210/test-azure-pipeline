@@ -1,0 +1,7 @@
+model OTP {
+  id          String   @id @default(uuid())
+  phoneNumber String   @db.VarChar(20)
+  otpCode     String
+  expiry      DateTime
+  createdAt   DateTime @default(now())
+}

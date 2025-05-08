@@ -1,0 +1,7 @@
+model eventRecurrenceTypeMaster {
+  eventRecurrenceTypeId BigInt @id @unique @default(autoincrement())
+  frequency             String @unique @db.VarChar(255)
+
+  // Relation back to Recurrency
+  recurrencies Recurrency[]
+}

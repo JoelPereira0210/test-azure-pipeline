@@ -1,0 +1,10 @@
+model Recurrency {
+  recurrencyId          String   @id @default(uuid())
+  recurrencyFrequencyId BigInt
+  recurrencyDay         DateTime
+  recurrencyMonth       DateTime
+
+  // Relations
+  recurrenceType eventRecurrenceTypeMaster @relation(fields: [recurrencyFrequencyId], references: [eventRecurrenceTypeId])
+  events         Event[]
+}
