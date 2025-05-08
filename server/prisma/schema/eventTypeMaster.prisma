@@ -1,0 +1,7 @@
+model eventTypeMaster {
+  id        BigInt @id @unique @default(autoincrement())
+  eventType String @unique @db.VarChar(255)
+
+  // Relation back to Event
+  events Event[]
+}

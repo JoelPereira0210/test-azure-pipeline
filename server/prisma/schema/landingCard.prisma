@@ -1,0 +1,23 @@
+enum CardType {
+    HEADER
+    DISCOVER
+    ABOUT_US
+    PLANS
+    CONTACT
+    GENERIC
+}
+
+model LandingCard {
+    landingCardId       String      @id @default(uuid())
+    cardTitle           String?     @db.VarChar(255)
+    cardSubTitle        String?     @db.VarChar(255)
+    cardDescription     String?     @db.VarChar(1000)
+    email               String?
+    phoneNumber         String?
+    type                CardType    @default(GENERIC)
+    buttonText          String?     
+  
+    //realtions
+    uploads             Media[]
+    sliderCards         SliderCard[] // One-to-many relationship
+}

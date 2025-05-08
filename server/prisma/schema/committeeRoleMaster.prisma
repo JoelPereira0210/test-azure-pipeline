@@ -1,0 +1,16 @@
+model CommitteeRoleMaster {
+  designationId     String          @id @default(uuid())
+  designationName   String
+  numberOfPositions Int
+  adminPrivileges   Boolean
+  createdDate       DateTime
+  createdById       String
+  modifiedDate      DateTime
+  modifiedById      String
+  isDeleted         Boolean
+  createdBy         User            @relation("RoleCreator", fields: [createdById], references: [userId])
+  modifiedBy        User            @relation("RoleEditor", fields: [modifiedById], references: [userId])
+  societyMembers    SocietyMember[] @relation("CommitteeRole")
+  societyId         String?
+  society           Society?        @relation(fields: [societyId], references: [societyId])
+}

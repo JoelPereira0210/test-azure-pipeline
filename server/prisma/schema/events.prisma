@@ -1,0 +1,44 @@
+enum DeletionStatus {
+  NOT_DELETED
+  SOFT_DELETED
+  HARD_DELETED
+}
+
+model Event {
+  eventId               String           @id @default(uuid())
+  eventName             String           @db.VarChar(255)
+  eventDescription      String           @db.VarChar(1000)
+  eventRegistrationDate DateTime
+  eventStartDate        DateTime
+  eventEndDate          DateTime
+  eventStartTime        DateTime
+  eventEndTime          DateTime
+  eventTypeId           BigInt?
+  acceptDonation        Boolean?
+  maxPeopleAllowed      String
+  amount                String?
+  allowFamilyandFriends Boolean
+  ChargePerPerson       Boolean?
+  createdById           String
+  createdBy             User             @relation("EventCreator", fields: [createdById], references: [userId])
+  modifiedById          String
+  modifiedBy            User             @relation("EventEditor", fields: [modifiedById], references: [userId])
+  isDeleted             DeletionStatus   @default(NOT_DELETED) // 0 = NotDeleted, 1 = SoftDeleted, 2 = HardDeleted
+  recurrencyId          String?
+  shouldPublish         Boolean
+  societyId             String // Foreign key to Society
+  society               Society          @relation("SocietyEventsRelation", fields: [societyId], references: [societyId])
+  feeTypeId             BigInt?
+  // Relations
+  eventType             eventTypeMaster? @relation(fields: [eventTypeId], references: [id])
+  feeType               feeTypeMaster?   @relation(fields: [feeTypeId], references: [id])
+  recurrency            Recurrency?      @relation(fields: [recurrencyId], references: [recurrencyId])
+
+  // uploads    Media[]         @relation("EventMediaRelation")
+  uploads Media[]
+
+  @@index([eventTypeId])
+  @@index([feeTypeId])
+  @@index([recurrencyId])
+  @@index([societyId]) // Indexing societyId for better query performance
+}

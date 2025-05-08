@@ -1,0 +1,24 @@
+model Society {
+  societyId             String                @id @default(uuid())
+  societySubscriptionId String?               @db.VarChar(255)
+  societyName           String                @db.VarChar(255)
+  description           String                @db.VarChar(255)
+  subscriptionStartDate DateTime?
+  subscriptionEndDate   DateTime?
+  address               String                @db.VarChar(255)
+  state                 Json
+  country               Json
+  pincode               String                @db.VarChar(6)
+  createdById           String
+  buildingDoorNumber    String                @db.VarChar(255)
+  buildingName          String                @db.VarChar(255)
+  logoId                String?               @unique
+  streetName            String                @db.VarChar(255)
+  chargeMembershipFees  Boolean?              @default(false)
+  membershipFeeAmount   String?               @db.VarChar(255)
+  createdBy             User                  @relation("SocietyCreator", fields: [createdById], references: [userId])
+  logo                  Media?
+  members               SocietyMember[]
+  events                Event[]               @relation("SocietyEventsRelation") // Updated relation
+  CommitteeRoleMaster   CommitteeRoleMaster[]
+}

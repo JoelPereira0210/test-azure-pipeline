@@ -1,0 +1,18 @@
+model BankDetails {
+  id            String   @id @default(uuid())
+  societyId     String?  @unique
+  bank          String
+  accountNumber String
+  IFSCCode      String
+  accountName   String
+  branchName    String
+  createdDate   DateTime
+  createdById   String
+  modifiedDate  DateTime
+  modifiedById  String
+  isDeleted     Boolean
+  contactId String?
+  fundAccount String?
+  createdBy     User     @relation("BankAccountCreator", fields: [createdById], references: [userId])
+  modifiedBy    User     @relation("BankAccountEditor", fields: [modifiedById], references: [userId])
+}

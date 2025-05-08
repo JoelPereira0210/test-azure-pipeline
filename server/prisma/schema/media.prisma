@@ -1,0 +1,44 @@
+// model Media {
+//   id        String     @id @default(uuid())
+//   type      String
+//   data      Bytes
+//   tableId   String
+//   tableType TableTypes
+//   // society   Society?   @relation("SocietyMediaRelation")
+//   // user      User?      @relation("UserMediaRelation")
+//   // event     Event?     @relation("EventMediaRelation", fields: [tableId], references: [eventId])
+
+//   event     Event?     @relation("EventMediaRelation", fields: [tableId], references: [eventId],map: "EventMedia_tableId_fkey")
+//   society   Society?   @relation("SocietyMediaRelation", fields: [tableId], references: [societyId], map: "SocietyMedia_tableId_fkey")
+//   user      User?      @relation("UserMediaRelation", fields: [tableId], references: [userId], map: "UserMedia_tableId_fkey")
+//   @@index([tableId]) // Ensure tableId is indexed for quicker lookups
+// }
+model Media {
+  id        String     @id @default(uuid())
+  type      String
+  data      Bytes
+  tableId   String? // No strict constraint
+  tableType TableTypes
+
+  // Optional foreign keys to Event, Society, and User
+  event   Event?  @relation(fields: [eventId], references: [eventId])
+  eventId String?
+
+  society   Society? @relation(fields: [societyId], references: [societyId])
+  societyId String?  @unique
+
+  user   User?   @relation(fields: [userId], references: [userId])
+  userId String? @unique
+  landingCard     LandingCard?  @relation(fields: [landingCardId], references: [landingCardId])
+  landingCardId   String?       @unique
+  sliderCard      SliderCard?   @relation(fields: [sliderCardId],  references: [sliderCardId])
+  sliderCardId    String?       @unique
+  @@index([tableId])
+}
+
+enum TableTypes {
+  user
+  society
+  event
+  landingPage
+}

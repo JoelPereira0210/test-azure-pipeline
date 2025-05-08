@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "OTP" ALTER COLUMN "phoneNumber" SET DATA TYPE VARCHAR(20);
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "phoneNumber" SET DATA TYPE VARCHAR(20);

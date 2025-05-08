@@ -1,0 +1,20 @@
+model Coupons {
+  couponId                 String   @id @default(uuid())
+  couponName         String   @db.VarChar(60)
+  couponCode         String   @db.VarChar(8) @unique
+  couponDescription  String   @db.VarChar(255)
+  expiryDate         DateTime
+  uses       String           
+  maxUses       String
+  societyId          String?
+  discountPercentage String
+  isDeleted          DeletionStatus @default(NOT_DELETED)
+  createdAt          DateTime
+  modifiedAt         DateTime
+  createdById        String
+  createdBy          User     @relation("CouponCreator", fields: [createdById], references: [userId])
+  modifiedById       String
+  modifiedBy         User     @relation("CouponEditor", fields: [modifiedById], references: [userId])
+shouldPublish  Boolean        @default(false)
+  SubscriptionPayments SubscriptionPayments[] @relation("Coupon")
+}

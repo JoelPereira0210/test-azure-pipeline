@@ -1,0 +1,5 @@
+model MembershipStatus {
+  id     BigInt @id @unique @default(autoincrement())
+  status String @unique @db.VarChar(255)
+  User   User[]
+}

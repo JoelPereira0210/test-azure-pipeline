@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "SubscriptionMaster" ALTER COLUMN "price" SET DATA TYPE TEXT,
+ALTER COLUMN "maxUsers" SET DATA TYPE TEXT,
+ALTER COLUMN "duration" SET DATA TYPE TEXT;

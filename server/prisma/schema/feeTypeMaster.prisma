@@ -1,0 +1,7 @@
+model feeTypeMaster {
+  id      BigInt @id @unique @default(autoincrement())
+  feeType String @unique @db.VarChar(255)
+
+  // Relation back to Event
+  events Event[]
+}

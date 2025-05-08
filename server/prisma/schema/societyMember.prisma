@@ -1,0 +1,12 @@
+model SocietyMember {
+  id        String              @id @default(uuid())
+  userId    String
+  societyId String
+  isAdmin   Boolean
+  roleId    String
+  role      CommitteeRoleMaster @relation("CommitteeRole", fields: [roleId], references: [designationId])
+  society   Society             @relation(fields: [societyId], references: [societyId])
+  user      User                @relation(fields: [userId], references: [userId])
+  inviteCode String? @unique
+  @@unique([userId, societyId]) // Ensures a user can only have one role per society
+}
